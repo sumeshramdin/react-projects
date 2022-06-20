@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import './App.css'
+import SingleCard from './components/SingleCard'
+  // object created outside of main component so it wont bet re-evaluated everytime the function is rnu
 
 const cardImages = [
   { "src": "/img/helmet-1.png" },
@@ -16,9 +18,9 @@ function App() {
 
   // shuffle cards for new game
   const shuffleCards = () => {
-    const shuffledCards = [...cardImages, ...cardImages]
-      .sort(() => Math.random() - 0.5)
-      .map(card => ({ ...card, id: Math.random() }))
+    const shuffledCards = [...cardImages, ...cardImages] // duplicating card so now we have 12 instead of 6 using the spread operator
+      .sort(() => Math.random() - 0.5) //generate a random order for cards
+      .map(card => ({ ...card, id: Math.random() })) // add an id property to each card
       
     setCards(shuffledCards)
     setTurns(0)
@@ -26,10 +28,20 @@ function App() {
 
   console.log(cards, turns)
 
-  return (
+   return (
     <div className="App">
       <h1>Magic Match</h1>
       <button onClick={shuffleCards}>New Game</button>
+
+      <div className="card-grid">
+        {cards.map(card => (
+          <SingleCard 
+			key={card.id}
+            card={card}
+		  />
+        ))}
+      </div>
+
     </div>
   );
 }
