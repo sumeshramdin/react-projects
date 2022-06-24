@@ -15,6 +15,9 @@ const cardImages = [
 function App() {
   const [cards, setCards] = useState([])
   const [turns, setTurns] = useState(0)
+  
+  const[choiceOne, setChoiceOne] = useState(null) // these are for the card choices
+  const[choiceTwo, setChoiceTwo] = useState(null)
 
   // shuffle cards for new game
   const shuffleCards = () => {
@@ -26,7 +29,10 @@ function App() {
     setTurns(0)
   }
 
-  console.log(cards, turns)
+ //handle a choice
+  const handleChoice = (card) => {
+
+  }
 
    return (
     <div className="App">
@@ -36,8 +42,9 @@ function App() {
       <div className="card-grid">
         {cards.map(card => (
           <SingleCard 
-			key={card.id}
-            card={card}
+			key={card.id} // key goes here as we mapping over the cards
+            card={card} // passed a prop to send it to the SingleCard component
+			handleChoice={handleChoice}  
 		  />
         ))}
       </div>
